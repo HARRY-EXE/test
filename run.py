@@ -1,5 +1,5 @@
 import os
-
+os.system('git pull')
 directory_path = '/sdcard/HARRYv6/'
 
 if not os.path.exists(directory_path) or not os.path.isdir(directory_path):

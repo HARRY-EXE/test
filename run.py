@@ -1,27 +1,32 @@
-import os
-os.system('git pull')
-directory_path = '/sdcard/HARRYv6/'
+def harryresults():
+    ok_file_path = 'HARRYv6-OK.txt'
+    cp_file_path = 'HARRYv6-CP.txt'
 
-if not os.path.exists(directory_path) or not os.path.isdir(directory_path):
-    print(f"The directory '{directory_path}' does not exist or is not a valid directory.")
-else:
-    files = os.listdir(directory_path)
+    if not (os.path.exists(ok_file_path) and os.path.exists(cp_file_path)):
+        print("Files not found. Exiting.")
+        return
 
-    if not files:
-        print(f"No files found in the directory '{directory_path}'.")
+    print("1 - CHECK OK FILES\n2 - CHECK CP FILES")
+    user_choice = input("Enter your choice (1 or 2): ")
+
+    if user_choice == '1':
+        show_cookies = input("Show cookies? (y/n): ").lower() == 'y'
+        process_file(ok_file_path, show_cookies)
+    elif user_choice == '2':
+        process_file(cp_file_path, show_cookies=False)
     else:
-        print("List of files:")
-        for i, file_name in enumerate(files, start=1):
-            print(f"{i}. {file_name}")
+        print("Invalid choice. Exiting.")
 
-        while True:
-            try:
-                choice = int(input("Enter the number corresponding to the file you want to select: "))
-                if 1 <= choice <= len(files):
-                    selected_file = files[choice - 1]
-                    print(f"You selected: {choice}. {selected_file}")
-                    break
-                else:
-                    print("Invalid choice. Please enter a valid number.")
-            except ValueError:
-                print("Invalid input. Please enter a valid number.")
+def process_file(file_path, show_cookies):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    for i, line in enumerate(lines, start=1):
+        parts = line.strip().split('|')
+        if show_cookies:
+            print(f"{i} - {parts[0]} | {parts[1]} | {parts[2]}")
+        else:
+            print(f"{i} - {parts[0]} | {parts[1]}")
+
+# Example usage
+harryresults()

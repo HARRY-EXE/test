@@ -1,7 +1,7 @@
 import os
 def harryresults():
-    ok_file_path = '/sdcard/HARRYv6-OK.txt'
-    cp_file_path = '/sdcard/HARRYv6-CP.txt'
+    ok_file_path = '/sdcard/HARRYv6/HARRYv6-OK.txt'
+    cp_file_path = '/sdcard/HARRYv6/HARRYv6-CP.txt'
 
     if not (os.path.exists(ok_file_path) and os.path.exists(cp_file_path)):
         print("Files not found. Exiting.")

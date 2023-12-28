@@ -1,3 +1,4 @@
+import os
 def harryresults():
     ok_file_path = 'HARRYv6-OK.txt'
     cp_file_path = 'HARRYv6-CP.txt'

